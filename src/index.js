@@ -16,19 +16,16 @@ function isConstantModule(imported) {
   return imported.moduleName.endsWith('/constants/base')
 }
 
+function isAnalyticsModule(imported) {
+  return imported.moduleName.endsWith('/constants/analytics')
+}
+
 function isStyleModule(imported) {
   return imported.moduleName.includes('/styles/')
 }
 
-function isReactModule(imported) {
-  return imported.moduleName === 'react';
-}
-
-function isReactNativeModule(imported) {
-  return (
-    imported.moduleName === 'react-native' ||
-    imported.moduleName.startsWith('react-native/')
-  );
+function isComponentsModule(imported) {
+  return imported.moduleName.includes('/components/')
 }
 
 function isInternalModule(imported) {
@@ -38,6 +35,18 @@ function isInternalModule(imported) {
 function isExternalModule(imported) {
   return imported.moduleName.startsWith('../');
 }
+
+function isReactNativeModule(imported) {
+  return (
+    imported.moduleName === 'react-native' ||
+    imported.moduleName.startsWith('react-native/')
+  );
+}
+
+function isReactModule(imported) {
+  return imported.moduleName === 'react';
+}
+
 
 function style(api, file) {
   const {
@@ -89,28 +98,44 @@ function style(api, file) {
     // import ... from '../projectFoo' (non-resource)
     // import ... from './projectFoo' (non-resource)
     {
-      match: and(isExternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
+      match: and(isExternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isComponentsModule), not(isAnalyticsModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
     {
-      match: and(isInternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
+      match: and(isInternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isComponentsModule), not(isAnalyticsModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
+    { separator: true },
+
+    // import MD_BUTTON from '../components/base/MD_BUTTON' ;
+
+    {
+      match: and(isComponentsModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isAnalyticsModule)),
+      sort: [dotSegmentCount, moduleName(naturally)],
+      sortNamedMembers: alias(unicode),
+    },
+    { separator: true },
 
     // import shadow from '../styles/base' ;
     // import MD_GREEN from '../constants/base' ;
+    // import ANALYTICS_EVENTS from '../analytics/base' ;
     // import type SESSION from '../types';
     // import image from '**/foo.png'
     { separator: true },
     {
-      match: and(isStyleModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
+      match: and(isStyleModule, not(isResourceModule), not(isCustomTypeModule), not(isAnalyticsModule), not(isConstantModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
     {
-      match: and(isConstantModule, not(isResourceModule), not(isCustomTypeModule)),
+      match: and(isConstantModule, not(isResourceModule), not(isCustomTypeModule), not(isAnalyticsModule)),
+      sort: [dotSegmentCount, moduleName(naturally)],
+      sortNamedMembers: alias(unicode),
+    },
+    {
+      match: and(isAnalyticsModule, not(isResourceModule), not(isCustomTypeModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
