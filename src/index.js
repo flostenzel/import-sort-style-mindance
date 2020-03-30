@@ -111,7 +111,7 @@ function style(api, file) {
 
     // import MD_BUTTON from '../components/base/MD_BUTTON' ;
     {
-      match: and(isComponentsModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
+      match: and(isComponentsModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isStyleModule), not(isStoresModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
@@ -119,7 +119,7 @@ function style(api, file) {
 
     // all but stores, styles, constants, types, png
     {
-      match: and(not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isStoresModule)),
+      match: and(not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isStyleModule), not(isStoresModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
@@ -127,7 +127,7 @@ function style(api, file) {
 
     // import coachstore from '../stores/coachstore
     {
-      match: and(isStoresModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
+      match: and(isStoresModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isStyleModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
