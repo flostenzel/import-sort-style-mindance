@@ -65,11 +65,21 @@ import axios from 'axios';
 
 // "External" project modules ("../")
 // "Internal" project modules ("./")
-import Divider from '../components/Divider';
+import Divider from '../Divider';
 import Bubble from './Bubble';
+
+// Custom components
+import MD_BUTTON from '../components/base/MD_BUTTON' ;
+
+// all but stores, styles, constants, types, png
+import MainCoach from '../screens/coach/MainCoach' ;
+
+// Custom stores
+import coachstore from '../stores/coachstore
 
 // Custom styles
 // Custom constants
+// Custom analytics
 // Custom types
 // Resource files (.png, .jpg, .jpeg, .svg)
 import shadow from '../styles/base' ;

@@ -24,6 +24,10 @@ function isStyleModule(imported) {
   return imported.moduleName.includes('/styles/')
 }
 
+function isStoresModule(imported) {
+  return imported.moduleName.includes('/stores/')
+}
+
 function isComponentsModule(imported) {
   return imported.moduleName.includes('/components/')
 }
@@ -110,9 +114,24 @@ function style(api, file) {
     { separator: true },
 
     // import MD_BUTTON from '../components/base/MD_BUTTON' ;
-
     {
       match: and(isComponentsModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isAnalyticsModule)),
+      sort: [dotSegmentCount, moduleName(naturally)],
+      sortNamedMembers: alias(unicode),
+    },
+    { separator: true },
+
+    // all but stores, styles, constants, types, png
+    {
+      match: and(not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isAnalyticsModule), not(isStoresModule)),
+      sort: [dotSegmentCount, moduleName(naturally)],
+      sortNamedMembers: alias(unicode),
+    },
+    { separator: true },
+
+    // import coachstore from '../stores/coachstore
+    {
+      match: and(isStoresModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isAnalyticsModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
