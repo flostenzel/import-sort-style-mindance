@@ -13,11 +13,7 @@ function isCustomTypeModule(imported) {
 }
 
 function isConstantModule(imported) {
-  return imported.moduleName.endsWith('/constants/base')
-}
-
-function isAnalyticsModule(imported) {
-  return imported.moduleName.endsWith('/constants/analytics')
+  return imported.moduleName.includes('/constants/')
 }
 
 function isStyleModule(imported) {
@@ -102,12 +98,12 @@ function style(api, file) {
     // import ... from '../projectFoo' (non-resource)
     // import ... from './projectFoo' (non-resource)
     {
-      match: and(isExternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isComponentsModule), not(isAnalyticsModule)),
+      match: and(isExternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isComponentsModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
     {
-      match: and(isInternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isComponentsModule), not(isAnalyticsModule)),
+      match: and(isInternalModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isComponentsModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
@@ -115,7 +111,7 @@ function style(api, file) {
 
     // import MD_BUTTON from '../components/base/MD_BUTTON' ;
     {
-      match: and(isComponentsModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isAnalyticsModule)),
+      match: and(isComponentsModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
@@ -123,7 +119,7 @@ function style(api, file) {
 
     // all but stores, styles, constants, types, png
     {
-      match: and(not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isAnalyticsModule), not(isStoresModule)),
+      match: and(not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isStoresModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
@@ -131,30 +127,23 @@ function style(api, file) {
 
     // import coachstore from '../stores/coachstore
     {
-      match: and(isStoresModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule), not(isAnalyticsModule)),
+      match: and(isStoresModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
     { separator: true },
 
-    // import shadow from '../styles/base' ;
-    // import MD_GREEN from '../constants/base' ;
-    // import ANALYTICS_EVENTS from '../analytics/base' ;
+    // import shadow from '../styles/..' ;
+    // import MD_GREEN from '../constants/..' ;
     // import type SESSION from '../types';
     // import image from '**/foo.png'
-    { separator: true },
     {
-      match: and(isStyleModule, not(isResourceModule), not(isCustomTypeModule), not(isAnalyticsModule), not(isConstantModule)),
+      match: and(isStyleModule, not(isResourceModule), not(isCustomTypeModule), not(isConstantModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },
     {
-      match: and(isConstantModule, not(isResourceModule), not(isCustomTypeModule), not(isAnalyticsModule)),
-      sort: [dotSegmentCount, moduleName(naturally)],
-      sortNamedMembers: alias(unicode),
-    },
-    {
-      match: and(isAnalyticsModule, not(isResourceModule), not(isCustomTypeModule)),
+      match: and(isConstantModule, not(isResourceModule), not(isCustomTypeModule)),
       sort: [dotSegmentCount, moduleName(naturally)],
       sortNamedMembers: alias(unicode),
     },

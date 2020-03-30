@@ -79,7 +79,6 @@ import coachstore from '../stores/coachstore
 
 // Custom styles
 // Custom constants
-// Custom analytics
 // Custom types
 // Resource files (.png, .jpg, .jpeg, .svg)
 import shadow from '../styles/base' ;
@@ -91,6 +90,6 @@ import image from '**/foo.png'
 
 ### References
 
-- https://github.com/renke/import-sort/tree/master/packages/import-sort-style-module
-- https://github.com/pietile/import-sort-style-pietile
-- https://github.com/nictar/import-sort-order-rn
+- <https://github.com/renke/import-sort/tree/master/packages/import-sort-style-module>
+- <https://github.com/pietile/import-sort-style-pietile>
+- <https://github.com/nictar/import-sort-order-rn>
