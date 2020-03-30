@@ -1,0 +1,33 @@
+{
+  "name": "import-sort-style-mindance",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flostenzel/import-sort-style-mindance.git"
+  },
+  "author": {
+    "name": "Florian Stenzel",
+    "email": "florian@mindance.com"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flostenzel/import-sort-style-mindance/issues"
+  },
+  "keywords": [
+    "import-sort",
+    "react-native"
+  ],
+  "description": "Sensible import order for React Native projects.",
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-import": "^2.18.2",
+    "prettier": "^1.19.1"
+  },
+  "homepage": "https://github.com/flostenzel/import-sort-style-mindance#readme"
+}
